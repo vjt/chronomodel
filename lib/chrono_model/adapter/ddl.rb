@@ -154,10 +154,12 @@ module ChronoModel
                         RETURN NEW;
                     END IF;
 
+                    PERFORM 1 FROM #{current} WHERE #{pk} = OLD.#{pk} FOR UPDATE;
+
                     _now := timezone('UTC', now());
                     _hid := NULL;
 
-                    #{"SELECT hid INTO _hid FROM #{history} WHERE #{pk} = OLD.#{pk} AND lower(validity) = _now;" unless ENV['CHRONOMODEL_NO_SQUASH']}
+                    #{"SELECT hid INTO _hid FROM #{history} WHERE #{pk} = OLD.#{pk} AND lower(validity) >= _now;" unless ENV['CHRONOMODEL_NO_SQUASH']}
 
                     IF _hid IS NOT NULL THEN
                         UPDATE #{history} SET (#{fields}) = (#{values}) WHERE hid = _hid;
