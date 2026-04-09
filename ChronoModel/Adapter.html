@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>
+  Class: ChronoModel::Adapter
+  
+    &mdash; Documentation by YARD 0.9.39
+  
+</title>
+
+  <link rel="stylesheet" href="../css/style.css" type="text/css" />
+
+  <link rel="stylesheet" href="../css/common.css" type="text/css" />
+
+<script type="text/javascript">
+  pathId = "ChronoModel::Adapter";
+  relpath = '../';
+</script>
+
+
+  <script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+
+  <script type="text/javascript" charset="utf-8" src="../js/app.js"></script>
+
+
+  </head>
+  <body>
+    <div class="nav_wrap">
+      <iframe id="nav" src="../class_list.html?1"></iframe>
+      <div id="resizer"></div>
+    </div>
+
+    <div id="main" tabindex="-1">
+      <div id="header">
+        <div id="menu">
+  
+    <a href="../_index.html">Index (A)</a> &raquo;
+    <span class='title'><span class='object_link'><a href="../ChronoModel.html" title="ChronoModel (module)">ChronoModel</a></span></span>
+     &raquo; 
+    <span class="title">Adapter</span>
+  
+</div>
+
+        <div id="search">
+  
+    <a class="full_list_link" id="class_list_link"
+        href="../class_list.html">
+
+        <svg width="24" height="24">
+          <rect x="0" y="4" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="12" width="24" height="4" rx="1" ry="1"></rect>
+          <rect x="0" y="20" width="24" height="4" rx="1" ry="1"></rect>
+        </svg>
+    </a>
+  
+</div>
+        <div class="clear"></div>
+      </div>
+
+      <div id="content"><h1>Class: ChronoModel::Adapter
+  
+  
+  
+</h1>
+<div class="box_info">
+  
+  <dl>
+    <dt>Inherits:</dt>
+    <dd>
+      <span class="inheritName">ActiveRecord::ConnectionAdapters::PostgreSQLAdapter</span>
+      
+        <ul class="fullTree">
+          <li>Object</li>
+          
+            <li class="next">ActiveRecord::ConnectionAdapters::PostgreSQLAdapter</li>
+          
+            <li class="next">ChronoModel::Adapter</li>
+          
+        </ul>
+        <a href="#" class="inheritanceTree">show all</a>
+      
+    </dd>
+  </dl>
+  
+
+  
+  
+  
+  
+  <dl>
+      <dt>Includes:</dt>
+      <dd><span class='object_link'><a href="Adapter/DDL.html" title="ChronoModel::Adapter::DDL (module)">DDL</a></span>, <span class='object_link'><a href="Adapter/Indexes.html" title="ChronoModel::Adapter::Indexes (module)">Indexes</a></span>, <span class='object_link'><a href="Adapter/Migrations.html" title="ChronoModel::Adapter::Migrations (module)">Migrations</a></span>, <span class='object_link'><a href="Adapter/TSRange.html" title="ChronoModel::Adapter::TSRange (module)">TSRange</a></span>, <span class='object_link'><a href="Adapter/Upgrade.html" title="ChronoModel::Adapter::Upgrade (module)">Upgrade</a></span></dd>
+  </dl>
+  
+  
+
+  
+
+  
+  <dl>
+    <dt>Defined in:</dt>
+    <dd>lib/chrono_model/adapter.rb<span class="defines">,<br />
+  lib/chrono_model/adapter/ddl.rb,<br /> lib/chrono_model/adapter/indexes.rb,<br /> lib/chrono_model/adapter/tsrange.rb,<br /> lib/chrono_model/adapter/upgrade.rb,<br /> lib/chrono_model/adapter/migrations.rb</span>
+</dd>
+  </dl>
+  
+</div>
+
+<h2>Overview</h2><div class="docstring">
+  <div class="discussion">
+    
+<p>This class implements all ActiveRecord::ConnectionAdapters::SchemaStatements methods adding support for temporal extensions. It inherits from the Postgres adapter for a clean override of its methods using super.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><h2>Defined Under Namespace</h2>
+<p class="children">
+  
+    
+      <strong class="modules">Modules:</strong> <span class='object_link'><a href="Adapter/DDL.html" title="ChronoModel::Adapter::DDL (module)">DDL</a></span>, <span class='object_link'><a href="Adapter/Indexes.html" title="ChronoModel::Adapter::Indexes (module)">Indexes</a></span>, <span class='object_link'><a href="Adapter/Migrations.html" title="ChronoModel::Adapter::Migrations (module)">Migrations</a></span>, <span class='object_link'><a href="Adapter/TSRange.html" title="ChronoModel::Adapter::TSRange (module)">TSRange</a></span>, <span class='object_link'><a href="Adapter/Upgrade.html" title="ChronoModel::Adapter::Upgrade (module)">Upgrade</a></span>
+    
+  
+    
+  
+</p>
+
+  
+    <h2>
+      Constant Summary
+      <small><a href="#" class="constants_summary_toggle">collapse</a></small>
+    </h2>
+
+    <dl class="constants">
+      
+        <dt id="TEMPORAL_SCHEMA-constant" class="">TEMPORAL_SCHEMA =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>The schema holding current data</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>temporal</span><span class='tstring_end'>&#39;</span></span></pre></dd>
+      
+        <dt id="HISTORY_SCHEMA-constant" class="">HISTORY_SCHEMA =
+          <div class="docstring">
+  <div class="discussion">
+    
+<p>The schema holding historical data</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div>
+        </dt>
+        <dd><pre class="code"><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>history</span><span class='tstring_end'>&#39;</span></span></pre></dd>
+      
+    </dl>
+  
+
+
+
+
+
+
+
+  
+    <h2>
+      Instance Method Summary
+      <small><a href="#" class="summary_toggle">collapse</a></small>
+    </h2>
+
+    <ul class="summary">
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#chrono_metadata_for-instance_method" title="#chrono_metadata_for (instance method)">#<strong>chrono_metadata_for</strong>(view_name)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Reads the Gem metadata from the COMMENT set on the given PostgreSQL view name.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#chrono_metadata_set-instance_method" title="#chrono_metadata_set (instance method)">#<strong>chrono_metadata_set</strong>(view_name, metadata)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Writes Gem metadata on the COMMENT field in the given VIEW name.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#chrono_setup!-instance_method" title="#chrono_setup! (instance method)">#<strong>chrono_setup!</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'></div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#chrono_supported%3F-instance_method" title="#chrono_supported? (instance method)">#<strong>chrono_supported?</strong>  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns true whether the connection adapter supports our implementation of temporal tables.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#column_definitions-instance_method" title="#column_definitions (instance method)">#<strong>column_definitions</strong>  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Runs column_definitions in the temporal schema, as the table there defined is the source for this information.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#is_chrono%3F-instance_method" title="#is_chrono? (instance method)">#<strong>is_chrono?</strong>(table)  &#x21d2; Boolean </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Returns true if the given name references a temporal table.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#on_history_schema-instance_method" title="#on_history_schema (instance method)">#<strong>on_history_schema</strong>(&amp;block)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Evaluates the given block in the history schema.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#on_schema-instance_method" title="#on_schema (instance method)">#<strong>on_schema</strong>(schema, recurse: :follow)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Evaluates the given block in the given <code>schema</code> search path.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#on_temporal_schema-instance_method" title="#on_temporal_schema (instance method)">#<strong>on_temporal_schema</strong>(&amp;block)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Evaluates the given block in the temporal schema.</p>
+</div></span>
+  
+</li>
+
+      
+        <li class="public ">
+  <span class="summary_signature">
+    
+      <a href="#primary_key-instance_method" title="#primary_key (instance method)">#<strong>primary_key</strong>(table_name)  &#x21d2; Object </a>
+    
+
+    
+  </span>
+  
+  
+  
+  
+  
+  
+  
+
+  
+    <span class="summary_desc"><div class='inline'>
+<p>Runs primary_key, indexes and default_sequence_name in the temporal schema, as the table there defined is the source for this information.</p>
+</div></span>
+  
+</li>
+
+      
+    </ul>
+  
+
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Adapter/Upgrade.html" title="ChronoModel::Adapter::Upgrade (module)">Upgrade</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Adapter/Upgrade.html#chrono_upgrade!-instance_method" title="ChronoModel::Adapter::Upgrade#chrono_upgrade! (method)">#chrono_upgrade!</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Adapter/TSRange.html" title="ChronoModel::Adapter::TSRange (module)">TSRange</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Adapter/TSRange.html#initialize_type_map-instance_method" title="ChronoModel::Adapter::TSRange#initialize_type_map (method)">#initialize_type_map</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Adapter/Indexes.html" title="ChronoModel::Adapter::Indexes (module)">Indexes</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Adapter/Indexes.html#add_temporal_indexes-instance_method" title="ChronoModel::Adapter::Indexes#add_temporal_indexes (method)">#add_temporal_indexes</a></span>, <span class='object_link'><a href="Adapter/Indexes.html#add_timeline_consistency_constraint-instance_method" title="ChronoModel::Adapter::Indexes#add_timeline_consistency_constraint (method)">#add_timeline_consistency_constraint</a></span>, <span class='object_link'><a href="Adapter/Indexes.html#remove_temporal_indexes-instance_method" title="ChronoModel::Adapter::Indexes#remove_temporal_indexes (method)">#remove_temporal_indexes</a></span>, <span class='object_link'><a href="Adapter/Indexes.html#remove_timeline_consistency_constraint-instance_method" title="ChronoModel::Adapter::Indexes#remove_timeline_consistency_constraint (method)">#remove_timeline_consistency_constraint</a></span>, <span class='object_link'><a href="Adapter/Indexes.html#timeline_consistency_constraint_name-instance_method" title="ChronoModel::Adapter::Indexes#timeline_consistency_constraint_name (method)">#timeline_consistency_constraint_name</a></span></p>
+
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <h3 class="inherited">Methods included from <span class='object_link'><a href="Adapter/Migrations.html" title="ChronoModel::Adapter::Migrations (module)">Migrations</a></span></h3>
+  <p class="inherited"><span class='object_link'><a href="Adapter/Migrations.html#add_column-instance_method" title="ChronoModel::Adapter::Migrations#add_column (method)">#add_column</a></span>, <span class='object_link'><a href="Adapter/Migrations.html#add_index-instance_method" title="ChronoModel::Adapter::Migrations#add_index (method)">#add_index</a></span>, <span class='object_link'><a href="Adapter/Migrations.html#change_column-instance_method" title="ChronoModel::Adapter::Migrations#change_column (method)">#change_column</a></span>, <span class='object_link'><a href="Adapter/Migrations.html#change_column_default-instance_method" title="ChronoModel::Adapter::Migrations#change_column_default (method)">#change_column_default</a></span>, <span class='object_link'><a href="Adapter/Migrations.html#change_column_null-instance_method" title="ChronoModel::Adapter::Migrations#change_column_null (method)">#change_column_null</a></span>, <span class='object_link'><a href="Adapter/Migrations.html#change_table-instance_method" title="ChronoModel::Adapter::Migrations#change_table (method)">#change_table</a></span>, <span class='object_link'><a href="Adapter/Migrations.html#create_table-instance_method" title="ChronoModel::Adapter::Migrations#create_table (method)">#create_table</a></span>, <span class='object_link'><a href="Adapter/Migrations.html#drop_table-instance_method" title="ChronoModel::Adapter::Migrations#drop_table (method)">#drop_table</a></span>, <span class='object_link'><a href="Adapter/Migrations.html#remove_column-instance_method" title="ChronoModel::Adapter::Migrations#remove_column (method)">#remove_column</a></span>, <span class='object_link'><a href="Adapter/Migrations.html#remove_index-instance_method" title="ChronoModel::Adapter::Migrations#remove_index (method)">#remove_index</a></span>, <span class='object_link'><a href="Adapter/Migrations.html#rename_column-instance_method" title="ChronoModel::Adapter::Migrations#rename_column (method)">#rename_column</a></span>, <span class='object_link'><a href="Adapter/Migrations.html#rename_table-instance_method" title="ChronoModel::Adapter::Migrations#rename_table (method)">#rename_table</a></span></p>
+
+  
+
+  <div id="instance_method_details" class="method_details_list">
+    <h2>Instance Method Details</h2>
+
+    
+      <div class="method_details first">
+  <h3 class="signature first" id="chrono_metadata_for-instance_method">
+  
+    #<strong>chrono_metadata_for</strong>(view_name)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Reads the Gem metadata from the COMMENT set on the given PostgreSQL view name.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+143
+144
+145
+146
+147
+148
+149</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/chrono_model/adapter.rb', line 143</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_chrono_metadata_for'>chrono_metadata_for</span><span class='lparen'>(</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_comment'>comment</span> <span class='op'>=</span> <span class='id identifier rubyid_select_value'>select_value</span><span class='lparen'>(</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>SELECT obj_description(</span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_quote'>quote</span><span class='lparen'>(</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'>::regclass)</span><span class='tstring_end'>&quot;</span></span><span class='comma'>,</span>
+    <span class='tstring'><span class='tstring_beg'>&quot;</span><span class='tstring_content'>ChronoModel metadata for </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_view_name'>view_name</span><span class='embexpr_end'>}</span><span class='tstring_end'>&quot;</span></span><span class='rparen'>)</span> <span class='kw'>if</span> <span class='id identifier rubyid_data_source_exists?'>data_source_exists?</span><span class='lparen'>(</span><span class='id identifier rubyid_view_name'>view_name</span><span class='rparen'>)</span>
+
+  <span class='const'>MultiJson</span><span class='period'>.</span><span class='id identifier rubyid_load'>load</span><span class='lparen'>(</span><span class='id identifier rubyid_comment'>comment</span> <span class='op'>||</span> <span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>{}</span><span class='tstring_end'>&#39;</span></span><span class='rparen'>)</span><span class='period'>.</span><span class='id identifier rubyid_with_indifferent_access'>with_indifferent_access</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="chrono_metadata_set-instance_method">
+  
+    #<strong>chrono_metadata_set</strong>(view_name, metadata)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Writes Gem metadata on the COMMENT field in the given VIEW name.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+153
+154
+155
+156
+157</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/chrono_model/adapter.rb', line 153</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_chrono_metadata_set'>chrono_metadata_set</span><span class='lparen'>(</span><span class='id identifier rubyid_view_name'>view_name</span><span class='comma'>,</span> <span class='id identifier rubyid_metadata'>metadata</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_comment'>comment</span> <span class='op'>=</span> <span class='const'>MultiJson</span><span class='period'>.</span><span class='id identifier rubyid_dump'>dump</span><span class='lparen'>(</span><span class='id identifier rubyid_metadata'>metadata</span><span class='rparen'>)</span>
+
+  <span class='id identifier rubyid_execute'>execute</span> <span class='tstring'><span class='tstring_beg'>%[</span><span class='tstring_content'> COMMENT ON VIEW </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_view_name'>view_name</span><span class='embexpr_end'>}</span><span class='tstring_content'> IS </span><span class='embexpr_beg'>#{</span><span class='id identifier rubyid_quote'>quote</span><span class='lparen'>(</span><span class='id identifier rubyid_comment'>comment</span><span class='rparen'>)</span><span class='embexpr_end'>}</span><span class='tstring_content'> </span><span class='tstring_end'>]</span></span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="chrono_setup!-instance_method">
+  
+    #<strong>chrono_setup!</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+36
+37
+38
+39
+40</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/chrono_model/adapter.rb', line 36</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_chrono_setup!'>chrono_setup!</span>
+  <span class='id identifier rubyid_chrono_ensure_schemas'>chrono_ensure_schemas</span>
+
+  <span class='id identifier rubyid_chrono_upgrade_warning'>chrono_upgrade_warning</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="chrono_supported?-instance_method">
+  
+    #<strong>chrono_supported?</strong>  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns true whether the connection adapter supports our implementation of temporal tables. Currently, Chronomodel is supported starting with PostgreSQL 9.3.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+32
+33
+34</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/chrono_model/adapter.rb', line 32</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_chrono_supported?'>chrono_supported?</span>
+  <span class='id identifier rubyid_postgresql_version'>postgresql_version</span> <span class='op'>&gt;=</span> <span class='int'>90300</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="column_definitions-instance_method">
+  
+    #<strong>column_definitions</strong>  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Runs column_definitions in the temporal schema, as the table there defined is the source for this information.</p>
+
+<p>The default search path is included however, since the table may reference types defined in other schemas, which result in their names becoming schema qualified, which will cause type resolutions to fail.</p>
+
+<p>NOTE: This method is dynamically defined, see the source.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+76
+77</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/chrono_model/adapter.rb', line 76</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_column_definitions'>column_definitions</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="is_chrono?-instance_method">
+  
+    #<strong>is_chrono?</strong>(table)  &#x21d2; <tt>Boolean</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Returns true if the given name references a temporal table.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+<p class="tag_title">Returns:</p>
+<ul class="return">
+  
+    <li>
+      
+      
+        <span class='type'>(<tt>Boolean</tt>)</span>
+      
+      
+      
+    </li>
+  
+</ul>
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+135
+136
+137
+138</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/chrono_model/adapter.rb', line 135</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_is_chrono?'>is_chrono?</span><span class='lparen'>(</span><span class='id identifier rubyid_table'>table</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_on_temporal_schema'>on_temporal_schema</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_data_source_exists?'>data_source_exists?</span><span class='lparen'>(</span><span class='id identifier rubyid_table'>table</span><span class='rparen'>)</span> <span class='rbrace'>}</span> <span class='op'>&amp;&amp;</span>
+    <span class='id identifier rubyid_on_history_schema'>on_history_schema</span> <span class='lbrace'>{</span> <span class='id identifier rubyid_data_source_exists?'>data_source_exists?</span><span class='lparen'>(</span><span class='id identifier rubyid_table'>table</span><span class='rparen'>)</span> <span class='rbrace'>}</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="on_history_schema-instance_method">
+  
+    #<strong>on_history_schema</strong>(&amp;block)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Evaluates the given block in the history schema.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+92
+93
+94</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/chrono_model/adapter.rb', line 92</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_on_history_schema'>on_history_schema</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_on_schema'>on_schema</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#HISTORY_SCHEMA-constant" title="ChronoModel::Adapter::HISTORY_SCHEMA (constant)">HISTORY_SCHEMA</a></span></span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="on_schema-instance_method">
+  
+    #<strong>on_schema</strong>(schema, recurse: :follow)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Evaluates the given block in the given <code>schema</code> search path.</p>
+
+<p>Recursion works by saving the old_path the function closure at each recursive call.</p>
+
+<p>See specs for examples and behaviour.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+103
+104
+105
+106
+107
+108
+109
+110
+111
+112
+113
+114
+115
+116
+117
+118
+119
+120
+121
+122
+123
+124
+125
+126
+127
+128
+129
+130
+131</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/chrono_model/adapter.rb', line 103</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_on_schema'>on_schema</span><span class='lparen'>(</span><span class='id identifier rubyid_schema'>schema</span><span class='comma'>,</span> <span class='label'>recurse:</span> <span class='symbol'>:follow</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_old_path'>old_path</span> <span class='op'>=</span> <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_schema_search_path'>schema_search_path</span>
+
+  <span class='id identifier rubyid_count_recursions'>count_recursions</span> <span class='kw'>do</span>
+    <span class='kw'>if</span> <span class='id identifier rubyid_recurse'>recurse</span> <span class='op'>==</span> <span class='symbol'>:follow</span> <span class='kw'>or</span> <span class='const'>Thread</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>recursions</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='int'>1</span>
+      <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_schema_search_path'>schema_search_path</span> <span class='op'>=</span> <span class='id identifier rubyid_schema'>schema</span>
+    <span class='kw'>end</span>
+
+    <span class='kw'>yield</span>
+  <span class='kw'>end</span>
+
+<span class='kw'>ensure</span>
+  <span class='comment'># If the transaction is aborted, any execute() call will raise
+</span>  <span class='comment'># &quot;transaction is aborted errors&quot; - thus calling the Adapter&#39;s
+</span>  <span class='comment'># setter won&#39;t update the memoized variable.
+</span>  <span class='comment'>#
+</span>  <span class='comment'># Here we reset it to +nil+ to refresh it on the next call, as
+</span>  <span class='comment'># there is no way to know which path will be restored when the
+</span>  <span class='comment'># transaction ends.
+</span>  <span class='comment'>#
+</span>  <span class='id identifier rubyid_transaction_aborted'>transaction_aborted</span> <span class='op'>=</span>
+    <span class='ivar'>@connection</span><span class='period'>.</span><span class='id identifier rubyid_transaction_status'>transaction_status</span> <span class='op'>==</span> <span class='const'>PG</span><span class='op'>::</span><span class='const'>Connection</span><span class='op'>::</span><span class='const'>PQTRANS_INERROR</span>
+
+  <span class='kw'>if</span> <span class='id identifier rubyid_transaction_aborted'>transaction_aborted</span> <span class='op'>&amp;&amp;</span> <span class='const'>Thread</span><span class='period'>.</span><span class='id identifier rubyid_current'>current</span><span class='lbracket'>[</span><span class='tstring'><span class='tstring_beg'>&#39;</span><span class='tstring_content'>recursions</span><span class='tstring_end'>&#39;</span></span><span class='rbracket'>]</span> <span class='op'>==</span> <span class='int'>1</span>
+    <span class='ivar'>@schema_search_path</span> <span class='op'>=</span> <span class='kw'>nil</span>
+  <span class='kw'>else</span>
+    <span class='kw'>self</span><span class='period'>.</span><span class='id identifier rubyid_schema_search_path'>schema_search_path</span> <span class='op'>=</span> <span class='id identifier rubyid_old_path'>old_path</span>
+  <span class='kw'>end</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="on_temporal_schema-instance_method">
+  
+    #<strong>on_temporal_schema</strong>(&amp;block)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Evaluates the given block in the temporal schema.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+86
+87
+88</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/chrono_model/adapter.rb', line 86</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_on_temporal_schema'>on_temporal_schema</span><span class='lparen'>(</span><span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+  <span class='id identifier rubyid_on_schema'>on_schema</span><span class='lparen'>(</span><span class='const'><span class='object_link'><a href="#TEMPORAL_SCHEMA-constant" title="ChronoModel::Adapter::TEMPORAL_SCHEMA (constant)">TEMPORAL_SCHEMA</a></span></span><span class='comma'>,</span> <span class='op'>&amp;</span><span class='id identifier rubyid_block'>block</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+      <div class="method_details ">
+  <h3 class="signature " id="primary_key-instance_method">
+  
+    #<strong>primary_key</strong>(table_name)  &#x21d2; <tt>Object</tt> 
+  
+
+  
+
+  
+</h3><div class="docstring">
+  <div class="discussion">
+    
+<p>Runs primary_key, indexes and default_sequence_name in the temporal schema, as the table there defined is the source for this information.</p>
+
+<p>Moreover, the PostgreSQLAdapter <code>indexes</code> method uses current_schema(), thus this is the only (and cleanest) way to make injection work.</p>
+
+<p>Schema nesting is disabled on these calls, make sure to fetch metadata from the first caller’s selected schema and not from the current one.</p>
+
+<p>NOTE: These methods are dynamically defined, see the source.</p>
+
+
+  </div>
+</div>
+<div class="tags">
+  
+
+</div><table class="source_code">
+  <tr>
+    <td>
+      <pre class="lines">
+
+
+56
+57</pre>
+    </td>
+    <td>
+      <pre class="code"><span class="info file"># File 'lib/chrono_model/adapter.rb', line 56</span>
+
+<span class='kw'>def</span> <span class='id identifier rubyid_primary_key'>primary_key</span><span class='lparen'>(</span><span class='id identifier rubyid_table_name'>table_name</span><span class='rparen'>)</span>
+<span class='kw'>end</span></pre>
+    </td>
+  </tr>
+</table>
+</div>
+    
+  </div>
+
+</div>
+
+      <div id="footer">
+  Generated on Thu Apr  9 22:46:18 2026 by
+  <a href="https://yardoc.org" title="Yay! A Ruby Documentation Tool" target="_parent">yard</a>
+  0.9.39 (ruby-3.3.10).
+</div>
+
+    </div>
+  </body>
+</html>
